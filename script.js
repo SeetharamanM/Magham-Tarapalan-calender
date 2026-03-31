@@ -713,6 +713,142 @@ function nextMonth() {
     generateCalendar();
 }
 
+// Push Notification for Good Tara Days
+let notificationEnabled = localStorage.getItem('goodTaraNotifications') === 'true';
+let swRegistration = null;
+
+// Register Service Worker
+async function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        try {
+            swRegistration = await navigator.serviceWorker.register('service-worker.js');
+            console.log('Service Worker registered:', swRegistration);
+            
+            // Listen for messages from service worker
+            navigator.serviceWorker.addEventListener('message', (event) => {
+                if (event.data.type === 'CHECK_GOOD_TARA') {
+                    checkAndNotifyGoodTara();
+                }
+            });
+            
+            return swRegistration;
+        } catch (error) {
+            console.error('Service Worker registration failed:', error);
+        }
+    }
+    return null;
+}
+
+// Request notification permission
+async function requestNotificationPermission() {
+    if (!('Notification' in window)) {
+        alert('இந்த உலாவி அறிவிப்புகளை ஆதரிக்கவில்லை');
+        return false;
+    }
+    
+    const permission = await Notification.requestPermission();
+    if (permission === 'granted') {
+        notificationEnabled = true;
+        localStorage.setItem('goodTaraNotifications', 'true');
+        await registerServiceWorker();
+        checkAndNotifyGoodTara();
+        return true;
+    } else {
+        notificationEnabled = false;
+        localStorage.setItem('goodTaraNotifications', 'false');
+        alert('அறிவிப்பு அனுமதி மறுக்கப்பட்டது');
+        return false;
+    }
+}
+
+// Toggle notifications
+async function toggleNotifications() {
+    if (!notificationEnabled) {
+        const granted = await requestNotificationPermission();
+        if (granted) {
+            updateNotificationButton();
+            // Schedule daily check
+            scheduleDailyNotification();
+        }
+    } else {
+        notificationEnabled = false;
+        localStorage.setItem('goodTaraNotifications', 'false');
+        updateNotificationButton();
+    }
+}
+
+// Update notification button UI
+function updateNotificationButton() {
+    const btn = document.getElementById('notificationBtn');
+    if (btn) {
+        if (notificationEnabled) {
+            btn.innerHTML = '🔔 அறிவிப்பு இயக்கப்பட்டது';
+            btn.classList.remove('bg-gray-500');
+            btn.classList.add('bg-green-500');
+        } else {
+            btn.innerHTML = '🔕 அறிவிப்பை இயக்கு';
+            btn.classList.remove('bg-green-500');
+            btn.classList.add('bg-gray-500');
+        }
+    }
+}
+
+// Check if today is good tara and notify
+function checkAndNotifyGoodTara() {
+    if (!notificationEnabled) return;
+    
+    const today = new Date();
+    const panchanga = calculatePanchanga(today);
+    const nakshatraIndex = nakshatras.findIndex(n => n.tamil === panchanga.nakshatra.tamil);
+    const tarapalan = calculateTarapalan(nakshatraIndex);
+    
+    // Good tara: Sampat, Kshema, Sadhaka, Maithra, Parama Maithra
+    const goodTaras = ['சம்பத் தாரா', 'க்ஷேம தாரா', 'ஸாதக தாரா', 'மித்ர தாரா', 'பரம மித்ர தாரா'];
+    
+    if (goodTaras.includes(tarapalan.taraName)) {
+        const title = '🌟 நல்ல தாரா நாள்!';
+        const body = `இன்று ${panchanga.nakshatra.tamil} - ${tarapalan.taraName}. முக்கிய செயல்களுக்கு சாதகமான நாள்.`;
+        
+        if (swRegistration && swRegistration.active) {
+            swRegistration.active.postMessage({
+                type: 'SHOW_NOTIFICATION',
+                title: title,
+                body: body
+            });
+        } else if (Notification.permission === 'granted') {
+            new Notification(title, {
+                body: body,
+                icon: '/icon.png',
+                badge: '/badge.png',
+                requireInteraction: true
+            });
+        }
+    }
+}
+
+// Schedule daily notification check
+function scheduleDailyNotification() {
+    if (!notificationEnabled) return;
+    
+    // Check immediately
+    checkAndNotifyGoodTara();
+    
+    // Calculate time until next 6 AM
+    const now = new Date();
+    const tomorrow6AM = new Date(now);
+    tomorrow6AM.setDate(tomorrow6AM.getDate() + 1);
+    tomorrow6AM.setHours(6, 0, 0, 0);
+    
+    const msUntil6AM = tomorrow6AM - now;
+    
+    // Schedule check at 6 AM daily
+    setTimeout(() => {
+        checkAndNotifyGoodTara();
+        // Schedule next day
+        setInterval(checkAndNotifyGoodTara, 24 * 60 * 60 * 1000);
+    }, msUntil6AM);
+}
+
 // Event listeners
 document.getElementById('prevMonth').addEventListener('click', previousMonth);
 document.getElementById('nextMonth').addEventListener('click', nextMonth);
@@ -720,4 +856,12 @@ document.getElementById('nextMonth').addEventListener('click', nextMonth);
 // Initialize calendar on page load
 document.addEventListener('DOMContentLoaded', function() {
     generateCalendar();
+    updateNotificationButton();
+    
+    // Auto-start notifications if previously enabled
+    if (notificationEnabled) {
+        registerServiceWorker().then(() => {
+            scheduleDailyNotification();
+        });
+    }
 });
