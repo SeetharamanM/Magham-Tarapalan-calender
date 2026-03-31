@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>மக நட்சத்திர தரபாலன் நாட்காட்டி - மதுரை</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Tamil:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans Tamil', 'Inter', sans-serif; }
+        .tamil-text { font-family: 'Noto Sans Tamil', sans-serif; }
+        .calendar-day { min-height: 120px; }
+        .good-tara { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .medium-tara { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+        .bad-tara { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2 tamil-text">மக நட்சத்திர தரபாலன் நாட்காட்டி</h1>
+            <p class="text-lg text-gray-600 tamil-text">மதுரை இருப்பிடத்திற்கான தினசரி தரபாலன்</p>
+            <div class="mt-4 flex justify-center gap-4">
+                <button id="prevMonth" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition tamil-text">← முந்தைய</button>
+                <span id="currentMonth" class="text-xl font-semibold text-gray-700 py-2 tamil-text"></span>
+                <button id="nextMonth" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition tamil-text">அடுத்த →</button>
+            </div>
+        </header>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <div class="grid grid-cols-7 gap-2 mb-4">
+                <div class="text-center font-semibold text-gray-700 tamil-text">ஞாயிறு</div>
+                <div class="text-center font-semibold text-gray-700 tamil-text">திங்கள்</div>
+                <div class="text-center font-semibold text-gray-700 tamil-text">செவ்வாய்</div>
+                <div class="text-center font-semibold text-gray-700 tamil-text">புதன்</div>
+                <div class="text-center font-semibold text-gray-700 tamil-text">வியாழன்</div>
+                <div class="text-center font-semibold text-gray-700 tamil-text">வெள்ளி</div>
+                <div class="text-center font-semibold text-gray-700 tamil-text">சனி</div>
+            </div>
+            <div id="calendarGrid" class="grid grid-cols-7 gap-2">
+                <!-- Calendar days will be generated here -->
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 tamil-text">விளக்கக் குறிப்பு</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 good-tara rounded"></div>
+                    <span class="text-gray-700 tamil-text">நல்ல தாரா (2,4,6,8,9 நட்சத்திர தூரம்)</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 medium-tara rounded"></div>
+                    <span class="text-gray-700 tamil-text">நடுத்தர தாரா (1,3,5,7 நட்சத்திர தூரம்)</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bad-tara rounded"></div>
+                    <span class="text-gray-700 tamil-text">கெட்ட தாரா (0 அல்லது 9ன் மடங்கு)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 tamil-text">இன்றைய தரபாலன்</h2>
+            <div id="todayInfo" class="text-lg text-gray-700">
+                <!-- Today's information will be displayed here -->
+            </div>
+        </div>
+
+        <div class="mt-6 bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 tamil-text">கூகுள் காலெண்டர் ஒருங்கிணைப்பு</h2>
+            <div class="flex flex-wrap gap-4">
+                <button id="authButton" onclick="handleAuthClick()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition tamil-text">
+                    கூகுள் உள்நுழைவு
+                </button>
+                <button id="syncButton" onclick="syncMonthToGoogleCalendar()" style="display:none;" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition tamil-text">
+                    இந்த மாதத்தை ஒத்திசை
+                </button>
+                <button id="exportButton" onclick="exportAsICS()" class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition tamil-text">
+                    ICS கோப்பாக ஏற்றுமதி
+                </button>
+                <button id="signOutButton" onclick="handleSignoutClick()" style="display:none;" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition tamil-text">
+                    வெளியேறு
+                </button>
+            </div>
+            <div class="mt-4 text-sm text-gray-600 tamil-text">
+                <p>• கூகுள் காலெண்டரில் நேரடியாக நிகழ்வுகளை உருவாக்க உள்நுழையவும்</p>
+                <p>• ICS கோப்பு எந்த காலெண்டர் பயன்பாட்டிலும் இறக்குமதி செய்யலாம்</p>
+                <p>• ஒவ்வொரு நாளும் தற்போதைய நட்சத்திரம் மற்றும் தாரா காட்டப்படும்</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Calendar API Script -->
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};initGoogleCalendar()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+    <script src="script.js"></script>
+    <script src="google-calendar-config.js"></script>
+</body>
+</html>

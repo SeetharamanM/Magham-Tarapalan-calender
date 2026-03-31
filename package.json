@@ -1,0 +1,24 @@
+{
+  "name": "magha-nakshatra-tarapalan-calendar",
+  "version": "1.0.0",
+  "description": "Google Calendar app showing daily tarapalan for Magha nakshatra in Madurai location",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve . -l 3000",
+    "build": "echo 'Build complete - static files ready for deployment'"
+  },
+  "keywords": [
+    "astrology",
+    "nakshatra",
+    "tarapalan",
+    "calendar",
+    "vedic",
+    "magha"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
