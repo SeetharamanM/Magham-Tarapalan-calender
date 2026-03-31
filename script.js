@@ -29,6 +29,85 @@ const nakshatras = [
     { english: 'Revati', tamil: 'ரேவதி' }
 ];
 
+// Tithi data (30 lunar days) - 15 Shukla Paksha + 15 Krishna Paksha
+const tithis = [
+    { number: 1, name: 'Pratipada', tamil: 'பிரதமை', paksha: 'shukla', type: 'Nanda' },
+    { number: 2, name: 'Dwitiya', tamil: 'துவிதியை', paksha: 'shukla', type: 'Bhadra' },
+    { number: 3, name: 'Tritiya', tamil: 'திருதியை', paksha: 'shukla', type: 'Jaya' },
+    { number: 4, name: 'Chaturthi', tamil: 'சதுர்த்தி', paksha: 'shukla', type: 'Rikta' },
+    { number: 5, name: 'Panchami', tamil: 'பஞ்சமி', paksha: 'shukla', type: 'Poorna' },
+    { number: 6, name: 'Shashthi', tamil: 'சஷ்டி', paksha: 'shukla', type: 'Nanda' },
+    { number: 7, name: 'Saptami', tamil: 'சப்தமி', paksha: 'shukla', type: 'Bhadra' },
+    { number: 8, name: 'Ashtami', tamil: 'அஷ்டமி', paksha: 'shukla', type: 'Jaya' },
+    { number: 9, name: 'Navami', tamil: 'நவமி', paksha: 'shukla', type: 'Rikta' },
+    { number: 10, name: 'Dashami', tamil: 'தசமி', paksha: 'shukla', type: 'Poorna' },
+    { number: 11, name: 'Ekadashi', tamil: 'ஏகாதசி', paksha: 'shukla', type: 'Nanda' },
+    { number: 12, name: 'Dwadashi', tamil: 'துவாதசி', paksha: 'shukla', type: 'Bhadra' },
+    { number: 13, name: 'Trayodashi', tamil: 'த்ரயோதசி', paksha: 'shukla', type: 'Jaya' },
+    { number: 14, name: 'Chaturdashi', tamil: 'சதுர்த்தசி', paksha: 'shukla', type: 'Rikta' },
+    { number: 15, name: 'Purnima', tamil: 'பூர்ணிமா', paksha: 'shukla', type: 'Poorna' },
+    { number: 1, name: 'Pratipada', tamil: 'பிரதமை', paksha: 'krishna', type: 'Nanda' },
+    { number: 2, name: 'Dwitiya', tamil: 'துவிதியை', paksha: 'krishna', type: 'Bhadra' },
+    { number: 3, name: 'Tritiya', tamil: 'திருதியை', paksha: 'krishna', type: 'Jaya' },
+    { number: 4, name: 'Chaturthi', tamil: 'சதுர்த்தி', paksha: 'krishna', type: 'Rikta' },
+    { number: 5, name: 'Panchami', tamil: 'பஞ்சமி', paksha: 'krishna', type: 'Poorna' },
+    { number: 6, name: 'Shashthi', tamil: 'சஷ்டி', paksha: 'krishna', type: 'Nanda' },
+    { number: 7, name: 'Saptami', tamil: 'சப்தமி', paksha: 'krishna', type: 'Bhadra' },
+    { number: 8, name: 'Ashtami', tamil: 'அஷ்டமி', paksha: 'krishna', type: 'Jaya' },
+    { number: 9, name: 'Navami', tamil: 'நவமி', paksha: 'krishna', type: 'Rikta' },
+    { number: 10, name: 'Dashami', tamil: 'தசமி', paksha: 'krishna', type: 'Poorna' },
+    { number: 11, name: 'Ekadashi', tamil: 'ஏகாதசி', paksha: 'krishna', type: 'Nanda' },
+    { number: 12, name: 'Dwadashi', tamil: 'துவாதசி', paksha: 'krishna', type: 'Bhadra' },
+    { number: 13, name: 'Trayodashi', tamil: 'த்ரயோதசி', paksha: 'krishna', type: 'Jaya' },
+    { number: 14, name: 'Chaturdashi', tamil: 'சதுர்த்தசி', paksha: 'krishna', type: 'Rikta' },
+    { number: 15, name: 'Amavasya', tamil: 'அமாவாசை', paksha: 'krishna', type: 'Poorna' }
+];
+
+// Yoga data (27 yogas)
+const yogas = [
+    { name: 'Vishkambha', tamil: 'விஷ்கம்ப', meaning: 'Support' },
+    { name: 'Priti', tamil: 'பிரீதி', meaning: 'Love' },
+    { name: 'Ayushman', tamil: 'ஆயுஷ்மான்', meaning: 'Longevity' },
+    { name: 'Saubhagya', tamil: 'சௌபாக்ய', meaning: 'Good Fortune' },
+    { name: 'Shobhana', tamil: 'சோபன', meaning: 'Splendor' },
+    { name: 'Atiganda', tamil: 'அதிகண்ட', meaning: 'Great Danger' },
+    { name: 'Sukarma', tamil: 'சுகர்மா', meaning: 'Good Works' },
+    { name: 'Dhriti', tamil: 'த்ரிதி', meaning: 'Determination' },
+    { name: 'Shoola', tamil: 'சூலா', meaning: 'Thorn' },
+    { name: 'Ganda', tamil: 'கண்ட', meaning: 'Danger' },
+    { name: 'Vriddhi', tamil: 'விருத்தி', meaning: 'Growth' },
+    { name: 'Dhruva', tamil: 'த்ருவ', meaning: 'Fixed' },
+    { name: 'Vyaghata', tamil: 'வ்யாகாத', meaning: 'Obstacle' },
+    { name: 'Harshana', tamil: 'ஹர்ஷண', meaning: 'Joy' },
+    { name: 'Vajra', tamil: 'வஜ்ர', meaning: 'Thunderbolt' },
+    { name: 'Siddhi', tamil: 'சித்தி', meaning: 'Success' },
+    { name: 'Vyatipata', tamil: 'வ்யதீபாத', meaning: 'Disaster' },
+    { name: 'Varigha', tamil: 'வரீகா', meaning: 'Boon' },
+    { name: 'Shiva', tamil: 'சிவ', meaning: 'Auspicious' },
+    { name: 'Siddha', tamil: 'சித்தா', meaning: 'Accomplished' },
+    { name: 'Sadhya', tamil: 'சாத்ய', meaning: 'Possible' },
+    { name: 'Shubha', tamil: 'சுப', meaning: 'Good' },
+    { name: 'Shukla', tamil: 'சுக்ல', meaning: 'Bright' },
+    { name: 'Brahma', tamil: 'பிரம்ம', meaning: 'Creator' },
+    { name: 'Indra', tamil: 'இந்திர', meaning: 'King' },
+    { name: 'Vaidhriti', tamil: 'வைத்ருதி', meaning: 'Support' }
+];
+
+// Karana data (11 karanas - 7 movable + 4 fixed)
+const karanas = [
+    { name: 'Bava', tamil: 'பவ', type: 'movable', quality: 'good' },
+    { name: 'Balava', tamil: 'பாலவ', type: 'movable', quality: 'good' },
+    { name: 'Kaulava', tamil: 'கௌலவ', type: 'movable', quality: 'good' },
+    { name: 'Taitila', tamil: 'தைதில', type: 'movable', quality: 'good' },
+    { name: 'Garaja', tamil: 'கரஜ', type: 'movable', quality: 'mixed' },
+    { name: 'Vanija', tamil: 'வணிஜ', type: 'movable', quality: 'good' },
+    { name: 'Vishti', tamil: 'விஷ்டி', type: 'movable', quality: 'bad' },
+    { name: 'Shakuni', tamil: 'சகுனி', type: 'fixed', quality: 'bad' },
+    { name: 'Chatushpada', tamil: 'சதுட்பாத', type: 'fixed', quality: 'mixed' },
+    { name: 'Naga', tamil: 'நாக', type: 'fixed', quality: 'bad' },
+    { name: 'Kimstughna', tamil: 'கிம்ஸ்துக்ன', type: 'fixed', quality: 'mixed' }
+];
+
 // Location coordinates for Madurai
 const MADHURAI_LOCATION = {
     latitude: 9.925211875760796,
@@ -135,6 +214,133 @@ function calculateMoonPosition(date) {
     if (siderealLongitude < 0) siderealLongitude += 360;
 
     return { longitude: siderealLongitude };
+}
+
+// Calculate Sun's Geocentric Longitude using Jean Meeus (simplified)
+function calculateSunPosition(date) {
+    const jd = getJulianDay(date);
+    const T = (jd - 2451545.0) / 36525;
+
+    // Mean longitude of the Sun
+    let L0 = 280.46646 + 36000.76983 * T + 0.0003032 * T * T;
+    L0 = L0 % 360;
+    if (L0 < 0) L0 += 360;
+
+    // Mean anomaly of the Sun
+    let M = 357.52911 + 35999.05029 * T - 0.0001537 * T * T;
+    M = M % 360;
+    if (M < 0) M += 360;
+
+    // Equation of center
+    let C = (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(M * Math.PI / 180)
+          + (0.019993 - 0.000101 * T) * Math.sin(2 * M * Math.PI / 180)
+          + 0.000289 * Math.sin(3 * M * Math.PI / 180);
+
+    // True longitude
+    let sunLongitude = L0 + C;
+    sunLongitude = sunLongitude % 360;
+    if (sunLongitude < 0) sunLongitude += 360;
+
+    // Apply Lahiri Ayanamsa
+    let ayanamsa = getLahiriAyanamsa(jd);
+    let siderealLongitude = (sunLongitude - ayanamsa) % 360;
+    if (siderealLongitude < 0) siderealLongitude += 360;
+
+    return { longitude: siderealLongitude };
+}
+
+// Calculate Tithi (lunar day)
+function calculateTithi(date) {
+    const moon = calculateMoonPosition(date);
+    const sun = calculateSunPosition(date);
+    
+    // Tithi is based on the difference between Moon and Sun longitude
+    let diff = (moon.longitude - sun.longitude) % 360;
+    if (diff < 0) diff += 360;
+    
+    // Each tithi is 12 degrees (360 / 30)
+    const tithiIndex = Math.floor(diff / 12);
+    const paksha = tithiIndex < 15 ? 'shukla' : 'krishna';
+    const tithiNumber = (tithiIndex % 15) + 1;
+    
+    return {
+        index: tithiIndex,
+        number: tithiNumber,
+        paksha: paksha,
+        name: tithis[tithiIndex],
+        diff: diff
+    };
+}
+
+// Calculate Yoga (27 combinations of Sun + Moon positions)
+function calculateYoga(date) {
+    const moon = calculateMoonPosition(date);
+    const sun = calculateSunPosition(date);
+    
+    // Yoga is based on sum of Moon and Sun longitude
+    let sum = (moon.longitude + sun.longitude) % 360;
+    if (sum < 0) sum += 360;
+    
+    // Each yoga is 13°20' (same as nakshatra - 360 / 27)
+    const yogaIndex = Math.floor(sum / (13 + 20/60)) % 27;
+    
+    return {
+        index: yogaIndex,
+        name: yogas[yogaIndex],
+        sum: sum
+    };
+}
+
+// Calculate Karana (half of a tithi)
+function calculateKarana(date) {
+    const tithi = calculateTithi(date);
+    const moon = calculateMoonPosition(date);
+    const sun = calculateSunPosition(date);
+    
+    // Karana is half of a tithi (6 degrees each)
+    let diff = (moon.longitude - sun.longitude) % 360;
+    if (diff < 0) diff += 360;
+    
+    // Each tithi has 2 karanas
+    const karanaIndexInTithi = Math.floor((diff % 12) / 6);
+    const tithiNumber = tithi.number;
+    const paksha = tithi.paksha;
+    
+    // Fixed karanas at specific times
+    let karanaIndex;
+    const tithiIndex = tithi.index;
+    if (paksha === 'shukla' && tithiNumber === 1 && karanaIndexInTithi === 0) {
+        karanaIndex = 10; // Kimstughna
+    } else if (paksha === 'krishna' && tithiNumber === 15 && karanaIndexInTithi === 1) {
+        karanaIndex = 10; // Kimstughna
+    } else {
+        // Movable karanas cycle through 0-6
+        karanaIndex = ((tithiIndex * 2 + karanaIndexInTithi) % 7);
+    }
+    
+    return {
+        tithiIndex: tithi.index,
+        tithiNumber: tithiNumber,
+        karanaIndex: karanaIndex,
+        name: karanas[karanaIndex],
+        paksha: paksha
+    };
+}
+
+// Calculate complete Panchanga for a date
+function calculatePanchanga(date) {
+    const tithi = calculateTithi(date);
+    const yoga = calculateYoga(date);
+    const karana = calculateKarana(date);
+    const nakshatra = calculateNakshatraWithTime(date);
+    
+    return {
+        tithi: tithi,
+        yoga: yoga,
+        karana: karana,
+        nakshatra: nakshatra,
+        date: date
+    };
 }
 
 // Calculate nakshatra for a given date with location-specific timing
@@ -403,7 +609,8 @@ function generateCalendar() {
         if (cellDate.getMonth() !== currentMonth) {
             dayElement.className += ' bg-gray-100 opacity-50';
         } else {
-            const nakshatraData = calculateNakshatraWithTime(cellDate);
+            const panchanga = calculatePanchanga(cellDate);
+            const nakshatraData = panchanga.nakshatra;
             const tarapalan = calculateTarapalan(nakshatras.findIndex(n => n.tamil === nakshatraData.tamil));
             
             // Add color coding based on tarapalan
@@ -425,9 +632,9 @@ function generateCalendar() {
         dayElement.innerHTML = `
             <div class="font-semibold text-sm">${cellDate.getDate()}</div>
             ${cellDate.getMonth() === currentMonth ? `
-                <div class="text-xs mt-1 tamil-text">${calculateNakshatraWithTime(cellDate).tamil}</div>
-                <div class="text-xs mt-1">${calculateNakshatraWithTime(cellDate).startTime}</div>
-                <div class="text-xs tamil-text">${calculateTarapalan(nakshatras.findIndex(n => n.tamil === calculateNakshatraWithTime(cellDate).tamil)).taraName}</div>
+                <div class="text-xs mt-1 tamil-text">${calculatePanchanga(cellDate).nakshatra.tamil}</div>
+                <div class="text-xs mt-1 tamil-text text-yellow-200">${calculatePanchanga(cellDate).tithi.name.tamil}</div>
+                <div class="text-xs tamil-text">${calculateTarapalan(nakshatras.findIndex(n => n.tamil === calculatePanchanga(cellDate).nakshatra.tamil)).taraName}</div>
             ` : ''}
         `;
         
@@ -437,10 +644,11 @@ function generateCalendar() {
     updateTodayInfo();
 }
 
-// Update today's information in Tamil
+// Update today's information in Tamil with Panchanga
 function updateTodayInfo() {
     const today = new Date();
-    const todayNakshatra = calculateNakshatraWithTime(today);
+    const panchanga = calculatePanchanga(today);
+    const todayNakshatra = panchanga.nakshatra;
     const todayTarapalan = calculateTarapalan(nakshatras.findIndex(n => n.tamil === todayNakshatra.tamil));
     
     const todayInfo = document.getElementById('todayInfo');
@@ -448,13 +656,22 @@ function updateTodayInfo() {
         <div class="space-y-2 tamil-text">
             <p><strong>தேதி:</strong> ${formatDate(today)}</p>
             <p><strong>இடம்:</strong> மதுரை (${MADHURAI_LOCATION.latitude.toFixed(4)}, ${MADHURAI_LOCATION.longitude.toFixed(4)})</p>
-            <p><strong>தற்போதைய நட்சத்திரம்:</strong> ${todayNakshatra.tamil}</p>
-            <p><strong>நேரம்:</strong> ${todayNakshatra.startTime} - ${todayNakshatra.endTime}</p>
-            <p><strong>பிறந்த நட்சத்திரம்:</strong> ${birthNakshatra}</p>
-            <p><strong>நட்சத்திர தூரம்:</strong> ${todayTarapalan.distance} நட்சத்திரங்கள்</p>
-            <p><strong>தாரா பெயர்:</strong> <span class="font-semibold">${todayTarapalan.taraName}</span></p>
-            <p><strong>தரபாலன் தரம்:</strong> <span class="font-semibold">${todayTarapalan.qualityText}</span></p>
-            <p><strong>விளக்கம்:</strong> ${todayTarapalan.description}</p>
+            
+            <div class="border-t pt-2 mt-2">
+                <h4 class="font-bold text-indigo-700">பஞ்சாங்கம்:</h4>
+                <p><strong>திதி:</strong> ${panchanga.tithi.name.tamil} (${panchanga.tithi.name.paksha === 'shukla' ? 'சுக್ಲ पక்ष' : 'கிருஷ்ண பட்ஷ'})</p>
+                <p><strong>நட்சத்திரம்:</strong> ${todayNakshatra.tamil} (${todayNakshatra.startTime} - ${todayNakshatra.endTime})</p>
+                <p><strong>யோகம்:</strong> ${panchanga.yoga.name.tamil}</p>
+                <p><strong>கரணம்:</strong> ${panchanga.karana.name.tamil} (${panchanga.karana.name.type === 'movable' ? 'சர' : 'ஸ்திர'})</p>
+            </div>
+            
+            <div class="border-t pt-2 mt-2">
+                <h4 class="font-bold text-indigo-700">தரபாலன்:</h4>
+                <p><strong>பிறந்த நட்சத்திரம்:</strong> ${birthNakshatra}</p>
+                <p><strong>தாரா:</strong> <span class="font-semibold">${todayTarapalan.taraName}</span></p>
+                <p><strong>தரம்:</strong> <span class="font-semibold">${todayTarapalan.qualityText}</span></p>
+                <p><strong>விளக்கம்:</strong> ${todayTarapalan.description}</p>
+            </div>
         </div>
         <div class="mt-4">
             <button onclick="toggleTaraDetails()" class="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 transition tamil-text">
